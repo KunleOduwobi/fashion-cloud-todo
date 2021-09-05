@@ -29,10 +29,13 @@ public class Index {
 //		Verify that header is displayed
 		String Header = driver.findElement(By.xpath("/html/body/div[1]/div[1]/h1/text()")).getText();
 		Assert.assertEquals(Header, "Simple ToDo List ");
+		System.out.println("Expected header found");
+
 		
 //		Add first Item 
 		driver.findElement(By.xpath("//*[@id=\"todo-form\"]/div/form/div/input")).sendKeys("Item 1");
-		
+		Thread.sleep(2000);
+
 //		Verify item was added 
 		String Item1 = driver.findElement(By.xpath("//*[@id=\"todo-list\"]/div/div/label/input")).getText();
 		Assert.assertEquals(Item1, "Item 1");
@@ -40,12 +43,26 @@ public class Index {
 		
 //		Add second Item 
 		driver.findElement(By.xpath("//*[@id=\"todo-form\"]/div/form/div/input")).sendKeys("Item 2");
-		
+		Thread.sleep(2000);
+
 //		Verify item was added 
 		String Item2 = driver.findElement(By.xpath("//*[@id=\"todo-list\"]/div/div[2]/label/input")).getText();
 		Assert.assertEquals(Item2, "Item 2");
 		System.out.println("Item2 added successfully");
 		
+//		Remove second item 
+		driver.findElement(By.xpath("//*[@id=\"todo-list\"]/div/div[2]/label/input")).click();
+		Thread.sleep(2000);
+
+//		Verify that 2nd item was removed 	
+
+		java.util.List<WebElement> Items =driver.findElements(By.xpath("//input[@type='checkbox']"));
+		
+		int ItemsSize = Items.size(); 
+		Assert.assertEquals(ItemsSize, "1");
+		System.out.println("Item2 removed successfully");
+
+
 		
 		driver.quit();
 
